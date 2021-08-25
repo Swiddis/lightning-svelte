@@ -7,7 +7,7 @@
     if (interval) clearInterval(interval);
     grid = Array.from({ length: settings.height }, () =>
       Array.from({ length: settings.width }, () => ({
-        cost: Math.random(),
+        cost: Math.floor(Math.random() * 19) + 1,
         visited: false,
         color: "#000",
         prev: null,
@@ -15,18 +15,24 @@
     );
     queue = new PriorityQueue({
       comparator: (a, b) => {
-        return a[0] - b[0]; // Dequeue by lowest cost
+        if (a[0] != b[0]) return a[0] - b[0]; // Dequeue by lowest cost
+        return b[1] - a[1]; // Otherwise by highest y-value
       },
     });
   };
 
   const finish = (y, x) => {
+    clearInterval(interval);
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[0].length; j++) {
+            grid[i][j].color = "#000";
+        }
+    }
     do {
       grid[y][x].color = "#c00";
       [y, x] = grid[y][x].prev;
     } while (grid[y][x].prev != null);
     grid[y][x].color = "#c00";
-    clearInterval(interval);
     setTimeout(() => {
       reset();
       run_lightning();

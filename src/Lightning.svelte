@@ -36,18 +36,12 @@
   };
 
   const finish = (y, x) => {
-    let [y0, x0] = [y, x];
     clearInterval(interval);
-    let i = 0;
     do {
-      // setTimeout(() => {
       set_color(y, x, settings.strike, 100);
-      // }, i);
       [y, x] = grid[y][x].prev;
     } while (grid[y][x].prev != null);
-    setTimeout(() => {
-      set_color(y, x, settings.strike, 100);
-    }, i);
+    set_color(y, x, settings.strike, 100);
     setTimeout(() => {
       reset();
       run_lightning();

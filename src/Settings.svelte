@@ -12,7 +12,7 @@
 </script>
 
 <div
-  class="flex-1 bg-gray-800 max-w-sm space-y-7 p-5 flex flex-col justify-start"
+  class="flex-1 bg-gray-800 max-w-sm space-y-5 p-5 flex flex-col justify-start"
 >
   <h1 class="text-gray-100 text-5xl text-center">Settings</h1>
   <label>
@@ -51,6 +51,14 @@
     <input
       type="checkbox"
       bind:checked={settings.check_diagonals}
+      class="form-checkbox h-8 w-8"
+    />
+  </label>
+  <label>
+    <p>Show numbers?</p>
+    <input
+      type="checkbox"
+      bind:checked={settings.show_numbers}
       class="form-checkbox h-8 w-8"
     />
   </label>

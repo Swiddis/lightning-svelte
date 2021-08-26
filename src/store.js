@@ -6,4 +6,5 @@ export let lightning_settings = writable({
     color: "#fce083",
     interval: 0.01,
     check_diagonals: false,
+    show_numbers: false,
 })

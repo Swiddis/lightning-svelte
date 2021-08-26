@@ -29,10 +29,10 @@
         }
     }
     do {
-      grid[y][x].color = "#c00";
+      grid[y][x].color = settings.color;
       [y, x] = grid[y][x].prev;
     } while (grid[y][x].prev != null);
-    grid[y][x].color = "#c00";
+    grid[y][x].color = settings.color;
     setTimeout(() => {
       reset();
       run_lightning();
@@ -47,7 +47,6 @@
     }
 
     let pop = queue.dequeue();
-    grid[pop[1]][pop[2]].visited = true;
     grid[pop[1]][pop[2]].color = settings.color;
 
     if (pop[1] == grid.length - 1) {
@@ -79,6 +78,7 @@
       let g = grid[pop[1] + check[0]][pop[2] + check[1]];
       if (g.visited) continue;
 
+      g.visited = true;
       queue.queue([g.cost, pop[1] + check[0], pop[2] + check[1]]);
       g.prev = g.prev != null ? g.prev : [pop[1], pop[2]];
     }
@@ -86,6 +86,7 @@
 
   const run_lightning = () => {
     let start = [0, Math.floor(Math.random() * grid[0].length)];
+    grid[start[0]][start[1]].visited = true;
     queue.queue([grid[start[0]][start[1]].cost, start[0], start[1]]);
     interval = setInterval(
       lightning_step,
@@ -104,8 +105,10 @@
   <div class="flex flex-col h-full overflow-hidden">
     {#each grid as cols, i}
       <div class="flex flex-1 justify-center">
-        {#each cols as cost, j}
-          <div class="grid-square" style="--square-color:{grid[i][j].color}" />
+        {#each cols as px, j}
+          <div class="grid-square text-gray-500" style="--square-color:{grid[i][j].color}">
+            {settings.show_numbers ? px.cost : ""}
+          </div>
         {/each}
       </div>
     {/each}

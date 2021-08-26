@@ -19,4 +19,11 @@ npm install
 npm run dev
 ```
 
+Or for a marginally faster experience, run it in build mode.
+
+```bash
+npm run build
+npm run start
+```
+
 Navigate to [localhost:5000](http://localhost:5000). You should see the app running. Edit a component file in `src`, save it, and reload the page to see your changes.

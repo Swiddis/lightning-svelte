@@ -9,7 +9,7 @@ This is a Svelte project. A more detailed set of instructions for making your ow
 Install the dependencies...
 
 ```bash
-cd svelte-app
+cd lightning-svelte
 npm install
 ```
 

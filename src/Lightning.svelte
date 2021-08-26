@@ -67,6 +67,7 @@
 
     if (pop[1] == grid.length - 1) {
       setTimeout(() => finish(pop[1], pop[2]), 30);
+      clearInterval(interval);
       return;
     }
 

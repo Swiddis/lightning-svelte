@@ -12,7 +12,7 @@
 </script>
 
 <div
-  class="flex-1 bg-gray-800 max-w-sm space-y-5 p-5 flex flex-col justify-start"
+  class="flex-1 bg-gray-800 max-w-sm space-y-5 p-5 flex flex-col justify-start overflow-auto"
 >
   <h1 class="text-gray-100 text-5xl text-center">Settings</h1>
   <label>
@@ -26,24 +26,25 @@
     <input type="number" bind:value={settings.height} min="8" max="400" />
   </label>
   <label>
-    <p>Color</p>
+    <p>Color/Fade/Strike</p>
     <input type="color" bind:value={settings.color} />
+    <input type="color" bind:value={settings.fade} />
+    <input type="color" bind:value={settings.strike} />
   </label>
   <label>
-    <p>Interval</p>
+    <p>Interval (ms)</p>
     <input
       type="range"
       bind:value={settings.interval}
       min="0"
-      max="1"
-      step="0.01"
+      max="1000"
     />
+    <p>Fade time (ms)</p>
     <input
-      type="number"
-      bind:value={settings.interval}
+      type="range"
+      bind:value={settings.fade_time}
       min="0"
-      max="1"
-      step="0.01"
+      max="10000"
     />
   </label>
   <label>

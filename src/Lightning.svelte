@@ -1,7 +1,20 @@
 <script>
   import PriorityQueue from "js-priority-queue";
   import { lightning_settings } from "./store.js";
+
   let settings, grid, queue, interval;
+
+  const set_color = (y, x, c, d) => {
+    if (d < 1) {
+      grid[y][x].duration = "0ms";
+      grid[y][x].color = c;
+    } else {
+      setTimeout(() => {
+        grid[y][x].duration = d.toString() + "ms";
+        grid[y][x].color = c;
+      }, 25);
+    }
+  };
 
   const reset = () => {
     if (interval) clearInterval(interval);
@@ -11,6 +24,7 @@
         visited: false,
         color: "#000",
         prev: null,
+        duration: "0ms",
       }))
     );
     queue = new PriorityQueue({
@@ -22,17 +36,18 @@
   };
 
   const finish = (y, x) => {
+    let [y0, x0] = [y, x];
     clearInterval(interval);
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[0].length; j++) {
-            grid[i][j].color = "#000";
-        }
-    }
+    let i = 0;
     do {
-      grid[y][x].color = settings.color;
+      // setTimeout(() => {
+      set_color(y, x, settings.strike, 100);
+      // }, i);
       [y, x] = grid[y][x].prev;
     } while (grid[y][x].prev != null);
-    grid[y][x].color = settings.color;
+    setTimeout(() => {
+      set_color(y, x, settings.strike, 100);
+    }, i);
     setTimeout(() => {
       reset();
       run_lightning();
@@ -47,10 +62,11 @@
     }
 
     let pop = queue.dequeue();
-    grid[pop[1]][pop[2]].color = settings.color;
+    set_color(pop[1], pop[2], settings.color, 0);
+    set_color(pop[1], pop[2], settings.fade, settings.fade_time);
 
     if (pop[1] == grid.length - 1) {
-      finish(pop[1], pop[2]);
+      setTimeout(() => finish(pop[1], pop[2]), 30);
       return;
     }
 
@@ -90,7 +106,7 @@
     queue.queue([grid[start[0]][start[1]].cost, start[0], start[1]]);
     interval = setInterval(
       lightning_step,
-      Math.round(settings.interval * 1000)
+      settings.interval
     );
   };
 
@@ -106,7 +122,10 @@
     {#each grid as cols, i}
       <div class="flex flex-1 justify-center">
         {#each cols as px, j}
-          <div class="grid-square text-gray-500" style="--square-color:{grid[i][j].color}">
+          <div
+            class="grid-square text-gray-500 transition-colors ease-in"
+            style="--duration:{grid[i][j].duration}; --color:{grid[i][j].color}"
+          >
             {settings.show_numbers ? px.cost : ""}
           </div>
         {/each}
@@ -118,6 +137,7 @@
 <style lang="postcss">
   .grid-square {
     aspect-ratio: 1;
-    background-color: var(--square-color);
+    background-color: var(--color);
+    transition-duration: var(--duration);
   }
 </style>

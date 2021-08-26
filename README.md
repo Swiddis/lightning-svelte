@@ -2,8 +2,6 @@
 
 This is a little tool that simulates a lightning strike using a breadth-first-search algorithm. The project is directly inspired by a recent [Numberphile video](https://www.youtube.com/watch?v=akZ8JJ4gGLs), as well as my own motivation to improve my abilities with Svelte and Tailwind CSS.
 
-Proper animations should be coming in the future, but for now, the project is limited to static changes of pixels in a grid.
-
 ## Get started
 
 This is a Svelte project. A more detailed set of instructions for making your own can be found [here](https://github.com/sveltejs/template).

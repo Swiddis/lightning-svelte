@@ -17,13 +17,13 @@
   <h1 class="text-gray-100 text-5xl text-center">Settings</h1>
   <label>
     <p>Width</p>
-    <input type="range" bind:value={settings.width} min="8" max="400" />
-    <input type="number" bind:value={settings.width} min="8" max="400" />
+    <input type="range" bind:value={settings.width} min="8" max="100" />
+    <input type="number" bind:value={settings.width} min="8" max="100" />
   </label>
   <label>
     <p>Height</p>
-    <input type="range" bind:value={settings.height} min="8" max="400" />
-    <input type="number" bind:value={settings.height} min="8" max="400" />
+    <input type="range" bind:value={settings.height} min="8" max="100" />
+    <input type="number" bind:value={settings.height} min="8" max="100" />
   </label>
   <label>
     <p>Color/Fade/Strike</p>
@@ -38,6 +38,7 @@
       bind:value={settings.interval}
       min="0"
       max="1000"
+      step="10"
     />
     <p>Fade time (ms)</p>
     <input
@@ -45,6 +46,7 @@
       bind:value={settings.fade_time}
       min="0"
       max="10000"
+      step="100"
     />
   </label>
   <label>
